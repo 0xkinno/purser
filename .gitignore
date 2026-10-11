@@ -7,6 +7,7 @@
 
 # Hackathon reference repos (DO NOT COMMIT)
 reference/
+neatlogs-setup.md
 
 # Python
 __pycache__/

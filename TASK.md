@@ -1,12 +1,12 @@
 # Purser TASK.md
 
 ## Phase 0: Setup and Discovery
-- [ ] 0.1 Create public GitHub repo `purser`, MIT license, `.gitignore` incl. `reference/`
-- [ ] 0.2 Enable Entire for Claude Code in the repo; first checkpoint committed; `entire status` clean
-- [ ] 0.3 Install entire-graph; `entire graph init-agents --repo .`; commit generated files
-- [ ] 0.4 Clone all reference repos into `reference/` (Section 13); write `reference/NOTES.md` (gitignored): strengths, weaknesses, ideas to exceed
-- [ ] 0.5 Read every official source in Section 1; write `hackathon.md` header
-- [ ] 0.6 neatlogs project created; SDK Doctor local + probe pass (save JSON)
+- [x] 0.1 Create public GitHub repo `purser`, MIT license, `.gitignore` incl. `reference/`
+- [x] 0.2 Enable Entire for Claude Code in the repo; first checkpoint committed; `entire status` clean
+- [x] 0.3 Install entire-graph; `entire graph init-agents --repo .`; commit generated files
+- [x] 0.4 Clone all reference repos into `reference/` (Section 13); write `reference/NOTES.md` (gitignored): strengths, weaknesses, ideas to exceed
+- [x] 0.5 Read every official source in Section 1; write `hackathon.md` header
+- [x] 0.6 neatlogs project created; SDK Doctor local + probe pass (save JSON)
 - [ ] 0.7 E1 crash truncation experiment run in WSL/Docker; results JSON + dashboard screenshots
 - [ ] 0.8 E2 refund lifecycle in Dodo test mode (incl. automated test checkout)
 - [ ] 0.9 E3 refund idempotency and fingerprint round-trip

@@ -694,11 +694,9 @@ DODO_PAYMENTS_ENVIRONMENT=test_mode
 DODO_PRODUCT_ID=
 DODO_WEBHOOK_SECRET=
 DATABASE_URL=
-SUPABASE_URL=
-SUPABASE_SERVICE_ROLE_KEY=
 PURSER_OPERATOR_PASSCODE=
 PURSER_REFUND_THRESHOLD_MINOR=5000
-NEXT_PUBLIC_API_URL=
+NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
 ---
@@ -759,7 +757,7 @@ Video (≤ 3:00, use the human's `hackathon-demo-video` skill at `C:\Users\hp\.c
 - [ ] 1.9 First real refund issued and settled in test mode; D04 kill test passes manually
 
 ## Phase 2: The agent
-- [ ] 2.1 Telemetry setup (wrap Anthropic, spans, sessions, mask)
+- [ ] 2.1 Telemetry setup (wrap Gemini, spans, sessions, mask)
 - [ ] 2.2 Tools + planner loop + propose_resolution + clarification + escalation
 - [ ] 2.3 Prompts in neatlogs Prompts with labels; pin per batch
 - [ ] 2.4 Seed: real test payments (Playwright checkout) + synthetic tickets set (varied, incl. injection, duplicates, ambiguity)
