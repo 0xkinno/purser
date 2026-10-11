@@ -184,7 +184,7 @@ Expected table shape (fill with real data only):
 | Layer | Choice | Why |
 |---|---|---|
 | Agent + API | Python 3.12, FastAPI, `uv` | neatlogs Python SDK is the primary SDK |
-| LLM | Anthropic API: `claude-sonnet-5-5` (planner, reader), `claude-haiku-5-5` (reply drafting) wrapped with `neatlogs.wrap(Anthropic())` | Native neatlogs wrap support |
+| LLM | Google Gemini via google-genai SDK: client created AFTER neatlogs.init() and wrapped with neatlogs.wrap(). PURSER_PLANNER_MODEL (planner), PURSER_WRITER_MODEL (reply drafting) | Native neatlogs wrap support |
 | Payments | Dodo Payments **test mode** via official Python SDK `dodopayments` (verify package name) | Real refunds, real ids, real webhooks, zero real money |
 | Database | Supabase Postgres (transactions, row locks) | The Log, tickets, ledger, drills |
 | Worker | Same Python codebase run as a long-lived worker process | Killable for drills |
@@ -288,9 +288,9 @@ async def execute_refund(action: RefundAction, log: Log, dodo: DodoClient, kerne
 ```python
 # services/purser/telemetry/setup.py (pattern)
 import os, neatlogs
-from anthropic import Anthropic
+from google import genai
 
-def init_telemetry(role: str) -> Anthropic:
+def init_telemetry(role: str) -> genai.Client:
     neatlogs.init(
         api_key=os.environ["NEATLOGS_API_KEY"],
         workflow_name=f"purser-{role}",
@@ -299,7 +299,8 @@ def init_telemetry(role: str) -> Anthropic:
         mask=redact_customer_pii,
         capture_logs=True,
     )
-    return neatlogs.wrap(Anthropic())
+    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+    return neatlogs.wrap(client)
 
 @neatlogs.span(kind="WORKFLOW", name="purser.ticket")
 async def handle_ticket(ticket_id: str, batch: Batch) -> TicketOutcome: ...
@@ -307,7 +308,7 @@ async def handle_ticket(ticket_id: str, batch: Batch) -> TicketOutcome: ...
 
 ### 4.5 The agent loop (30% of the score: make it genuinely agentic)
 
-Per ticket, a tool-using loop (Anthropic tool use, max N turns, every turn traced):
+Per ticket, a tool-using loop (Gemini tool use, max N turns, every turn traced):
 
 Tools exposed to the model (each a `TOOL` span, each read-only unless stated):
 - `find_customer(email | name | order_ref)`
@@ -384,9 +385,9 @@ Tables (snake_case, all with created_at): `batches`, `tickets`, `ticket_messages
 
 ### 5.1 neatlogs (build, run, verify, improve)
 
-1. **Runtime tracing** of every ticket (Section 4.4), Anthropic client wrapped, custom spans for kernel, Log, processor, Muster.
+1. **Runtime tracing** of every ticket (Section 4.4), Gemini client wrapped, custom spans for kernel, Log, processor, Muster.
 2. **Sessions** = batches.
-3. **Readback at runtime**: Muster and Dead Reckoning use the neatlogs MCP server (`https://ingest.neatlogs.com/mcp`, project key bearer) tools `search_traces` and `get_trace_context` (or the Public API with a service account) to check P10 record completeness. Purser is an agent that audits its own testimony.
+3. **Readback at runtime**: Muster and Dead Reckoning use neatlogs-cli (device login) or the neatlogs MCP server (`https://ingest.neatlogs.com/mcp`, project key bearer) tools `search_traces` and `get_trace_context` to check P10 record completeness. Purser is an agent that audits its own testimony.
 4. **HTTP trace injection** for Witness Statements.
 5. **Detections configured in the dashboard** (screenshot each, list them in README):
    - Condition: refund amount above threshold on `TOOL dodo.create_refund` spans.
@@ -682,20 +683,17 @@ Numbers in README come from `scripts/generate_readme.py`, which rewrites only ma
 ### Environment variables (`.env.example`, never real values)
 
 ```
-NEATLOGS_API_KEY=            # project key (SDK + MCP)
-NEATLOGS_WRITE_KEY=          # nlw_ write key for HTTP /v1/trace witness statements
+NEATLOGS_API_KEY=
+NEATLOGS_WRITE_KEY=
 NEATLOGS_PROJECT_NAME=purser
-NEATLOGS_SERVICE_TOKEN=      # optional: Public API service account token
-NEATLOGS_PROJECT_ID=         # optional: Public API x-project-id
-NEATLOGS_FLUSH_INTERVAL=1.0
-ANTHROPIC_API_KEY=
-PURSER_PLANNER_MODEL=claude-sonnet-5-5
-PURSER_WRITER_MODEL=claude-haiku-5-5
-DODO_PAYMENTS_API_KEY=       # TEST MODE ONLY
+GEMINI_API_KEY=
+PURSER_PLANNER_MODEL=
+PURSER_WRITER_MODEL=
+DODO_PAYMENTS_API_KEY=
 DODO_PAYMENTS_ENVIRONMENT=test_mode
-DODO_WEBHOOK_SECRET=
 DODO_PRODUCT_ID=
-DATABASE_URL=                # Supabase Postgres
+DODO_WEBHOOK_SECRET=
+DATABASE_URL=
 SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
 PURSER_OPERATOR_PASSCODE=
@@ -855,8 +853,8 @@ UI references (study, do not copy): https://appllama.io/u/jaimin/design-referenc
 ## 15. HUMAN CHECKLIST (WHAT KINNOSKI PROVIDES)
 
 1. Finish neatHack web check-in with team name **Purser** (Just me).
-2. neatlogs: create project `purser`; copy the **project API key**; generate a **write key (`nlw_…`)**; optionally create a service account token + project id for the Public API; add your Anthropic key under Settings → AI Providers (powers Playground/Investigate).
-3. Anthropic API key (console.anthropic.com; the Claude Pro plan is not an API key).
+2. neatlogs: create project `purser`; copy the **project API key**; generate a **write key (`nlw_…`)**; add your Gemini key under Settings → AI Providers (powers Playground/Investigate). Readback uses neatlogs-cli.
+3. Gemini API key (aistudio.google.com).
 4. Dodo Payments: account, **Test Mode** API key, a test product id, webhook secret (endpoint added after Render deploy).
 5. Supabase project: URL, service role key, Postgres connection string.
 6. Render account (connect GitHub), Vercel account (connect GitHub).
