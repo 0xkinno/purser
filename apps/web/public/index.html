@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purser | Autonomous Refund Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-paper: #F5F0E6;
+      --color-paper-2: #EFE8DA;
+      --color-paper-3: #E6DDCB;
+      --color-ink: #16130F;
+      --color-ink-2: #4A443B;
+      --color-ink-3: #8A8275;
+      --color-signal: #2B44FF;
+      --color-signal-glow: rgba(43, 68, 255, 0.35);
+      --color-brass: #A8792E;
+      --color-settled: #1F7A4D;
+      --color-alarm: #C2361F;
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-sans: 'Geist', system-ui, sans-serif;
+      --font-mono: 'Geist Mono', monospace;
+      --radius-capsule: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background:
+        radial-gradient(1200px 600px at 70% -10%, rgba(43,68,255,0.06), transparent 60%),
+        radial-gradient(900px 500px at 0% 100%, rgba(168,121,46,0.07), transparent 60%),
+        var(--color-paper);
+      color: var(--color-ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .capsule-nav {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: var(--radius-capsule);
+      border: 1px solid var(--color-paper-3);
+      background: rgba(239, 232, 218, 0.85);
+      padding: 0.35rem 0.6rem;
+      backdrop-filter: blur(12px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 20px rgba(0,0,0,0.04);
+    }
+    .capsule-nav a {
+      padding: 0.4rem 0.85rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-ink-2);
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+    .capsule-nav a.active {
+      background: var(--color-ink);
+      color: var(--color-paper);
+      box-shadow: 0 0 0 1px var(--color-signal), 0 0 18px var(--color-signal-glow);
+    }
+
+    .hero-section {
+      max-width: 1240px;
+      margin: 6.5rem auto 3rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .hero-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-brass);
+      margin-bottom: 0.75rem;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: 4.5rem;
+      line-height: 1.05;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--color-signal);
+    }
+    .hero-sub {
+      font-size: 1.125rem;
+      color: var(--color-ink-2);
+      max-width: 540px;
+      margin-bottom: 2rem;
+    }
+    .cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.85rem 1.6rem;
+      background: var(--color-ink);
+      color: var(--color-paper);
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--color-signal), 0 0 24px var(--color-signal-glow);
+    }
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.85rem 1.4rem;
+      border: 1px solid var(--color-paper-3);
+      background: var(--color-paper-2);
+      color: var(--color-ink);
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 12px;
+    }
+
+    .hero-visual-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--color-paper-3);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+    }
+    .hero-visual-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .seal-overlay {
+      position: absolute;
+      bottom: -15px;
+      left: -15px;
+      width: 140px;
+      height: 140px;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+      animation: rotateSeal 120s linear infinite;
+    }
+    @keyframes rotateSeal {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .live-strip {
+      max-width: 1240px;
+      margin: 1rem auto 4rem;
+      padding: 0.85rem 1.5rem;
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-paper-3);
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.825rem;
+      color: var(--color-ink-2);
+    }
+    .live-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-signal);
+      box-shadow: 0 0 8px var(--color-signal);
+      margin-right: 6px;
+    }
+
+    .dashboard-preview {
+      max-width: 1240px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .metric-card {
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-paper-3);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+    .metric-card .label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--color-ink-3);
+      margin-bottom: 0.4rem;
+    }
+    .metric-card .val {
+      font-family: var(--font-mono);
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+
+    .table-container {
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-paper-3);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+    }
+    th {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-ink-3);
+      background: rgba(230, 221, 203, 0.4);
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--color-paper-3);
+    }
+    td {
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--color-paper-3);
+      font-family: var(--font-mono);
+    }
+    .tag-settled {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      background: rgba(31, 122, 77, 0.12);
+      color: var(--color-settled);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Square Capsule Nav -->
+  <nav class="capsule-nav">
+    <a href="#hero" class="active">The Report</a>
+    <a href="#finding">The Finding</a>
+    <a href="#drills">Storm Drills</a>
+    <a href="#provenance">Provenance</a>
+    <a href="#verify">Verify Batch</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div>
+      <div class="hero-kicker">NEATHACK 2026 · REFUND OPERATIONS</div>
+      <h1 class="hero-headline">Refunds, settled <em>once</em>.</h1>
+      <p class="hero-sub">Purser clears your refund queue overnight. If it crashes at ticket 73, it still knows exactly who was paid. Mathematically verified with exactly-once money semantics.</p>
+      <div class="cta-group">
+        <a href="#dashboard" class="btn-primary">Open the ledger</a>
+        <a href="#drills" class="btn-secondary">Watch it survive a crash</a>
+      </div>
+    </div>
+    <div class="hero-visual-card">
+      <img src="images/hero_ledger.jpg" alt="Purser Ship Ledger Desk" />
+      <svg class="seal-overlay" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#A8792E" stroke-width="2"/>
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#A8792E" stroke-width="1" stroke-dasharray="2,2"/>
+        <path d="M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25" stroke="#A8792E" stroke-width="1"/>
+        <circle cx="50" cy="50" r="6" fill="#A8792E"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Live Batch Strip -->
+  <div class="live-strip">
+    <div><span class="live-dot"></span> BATCH B-0412 · ACTIVE</div>
+    <div>138 TICKETS EVALUATED</div>
+    <div>$4,212.50 REFUNDED</div>
+    <div style="color: var(--color-settled);">MUSTER PASSED · 0 DUPLICATES</div>
+  </div>
+
+  <!-- Dashboard Overview -->
+  <section id="dashboard" class="dashboard-preview">
+    <h2 class="section-title">The Operational Report</h2>
+    <div class="report-grid">
+      <div class="metric-card">
+        <div class="label">Tickets Processed</div>
+        <div class="val">138</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Total Refunded</div>
+        <div class="val">$4,212.50</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Duplicate Refunds</div>
+        <div class="val" style="color: var(--color-settled);">0</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Muster Roll Status</div>
+        <div class="val" style="color: var(--color-settled);">MATCHED</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Ticket ID</th>
+            <th>Customer</th>
+            <th>Rule Evaluated</th>
+            <th>Amount</th>
+            <th>Action Hash</th>
+            <th>Processor Refund ID</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>tkt_seed_001</td>
+            <td>test_customer_1@example.com</td>
+            <td>R1_full_within_14_days</td>
+            <td>$28.98</td>
+            <td>db8a8f0c3988b65a1c8d380f</td>
+            <td>ref_0NpaM1zsPnunlGWyjXVD1</td>
+            <td><span class="tag-settled">SETTLED</span></td>
+          </tr>
+          <tr>
+            <td>tkt_seed_002</td>
+            <td>jordan_lee@example.com</td>
+            <td>R2_prorata_annual_cancel</td>
+            <td>$24.98</td>
+            <td>12d90e82772dd3ef86c1a861</td>
+            <td>ref_0NpaO6hD0oppZRCVw7F8N</td>
+            <td><span class="tag-settled">SETTLED</span></td>
+          </tr>
+          <tr>
+            <td>tkt_seed_003</td>
+            <td>attacker@suspicious.net</td>
+            <td>R6_chargeback_risk_escalate</td>
+            <td>$0.00</td>
+            <td>e4a119cbf44a19dc9801fa91</td>
+            <td>None (Blocked)</td>
+            <td><span style="color: var(--color-alarm); font-weight: 600;">ESCALATED</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</body>
+</html>

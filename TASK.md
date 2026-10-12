@@ -43,19 +43,19 @@
 - [x] 3.6 Provenance: rule → commit → checkpoint resolved for every rule id
 
 ## Phase 4: Product UI
-- [ ] 4.1 Design tokens, fonts, paper grain, capsule nav
-- [ ] 4.2 Hero image generated or sourced; Ledger Seal SVG; Dead Reckoning SVG
-- [ ] 4.3 Landing page sections 1..8 with real data
-- [ ] 4.4 Dashboard routes (all in 7.7) wired to the API, judge read-only mode, operator passcode
-- [ ] 4.5 /verify TS port + /support + /r/[ticket]
-- [ ] 4.6 Playwright responsive matrix all green; screenshots saved
-- [ ] 4.7 Lighthouse ≥ 90 performance, 100 accessibility on landing (save report)
+- [x] 4.1 Design tokens, fonts, paper grain, capsule nav
+- [x] 4.2 Hero image generated or sourced; Ledger Seal SVG; Dead Reckoning SVG
+- [x] 4.3 Landing page sections 1..8 with real data
+- [x] 4.4 Dashboard routes (all in 7.7) wired to the API, judge read-only mode, operator passcode
+- [x] 4.5 /verify TS port + /support + /r/[ticket]
+- [x] 4.6 Playwright responsive matrix all green; screenshots saved
+- [x] 4.7 Lighthouse ≥ 90 performance, 100 accessibility on landing (save report)
 
 ## Phase 5: Business and evidence
-- [ ] 5.1 export_cfo_inputs.py; cfo.ai model built; BUSINESS_PLAN.md; /app/economics
-- [ ] 5.2 generate_readme.py; README complete per template; all md docs written
-- [ ] 5.3 CLAIMS.json complete; every claim has evidence + command + status
-- [ ] 5.4 ENTIRE.md and NEATLOGS.md complete with links
+- [x] 5.1 export_cfo_inputs.py; cfo.ai model built; BUSINESS_PLAN.md; /app/economics
+- [x] 5.2 generate_readme.py; README complete per template; all md docs written
+- [x] 5.3 CLAIMS.json complete; every claim has evidence + command + status
+- [x] 5.4 ENTIRE.md and NEATLOGS.md complete with links
 
 ## Phase 6: Ship
 - [ ] 6.1 Deploy API + worker (Render), web (Vercel), with human approval
