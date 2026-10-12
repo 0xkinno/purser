@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="kit.css">
+<script src="kit.js"></script>
+<title>S02 Maya</title>
+</head>
+<body>
+<div class="scene light">
+  <div class="abs" style="left:120px;top:220px;width:720px;">
+    <!-- Persona badge -->
+    <div class="in l" id="persona-badge" style="display:flex;align-items:center;gap:24px;margin-bottom:36px;">
+      <div style="width:110px;height:110px;border-radius:50%;background:var(--color-brass);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:68px;box-shadow:0 12px 30px rgba(168,121,46,0.3);">
+        M
+      </div>
+      <div>
+        <div class="lab" style="color:var(--color-brass);font-weight:700;">MAYA &middot; SOLO SAAS FOUNDER</div>
+        <div class="mono" style="font-size:14px;color:var(--color-ink-3);margin-top:4px;">dodo payments &middot; standard checkout &middot; illustrative persona</div>
+      </div>
+    </div>
+
+    <!-- Headline -->
+    <div class="in l" id="headline" style="margin-top:20px;">
+      <h1 class="h1" style="font-size:74px;line-height:1.08;color:var(--color-ink);">
+        Sixty refund tickets a week.<br>
+        One founder.<br>
+        No room for a <em>mistake</em>.
+      </h1>
+      <p class="mono" style="font-size:16px;color:var(--color-ink-2);margin-top:28px;max-width:560px;line-height:1.6;">
+        Every manual refund risks duplicate payout, miscalculated proration, or missed policy cutoffs.
+      </p>
+    </div>
+  </div>
+
+  <!-- Chore stack right -->
+  <div class="abs" id="stack-container" style="right:140px;top:200px;width:660px;">
+    <div class="card in r" id="c1" style="margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="pill" style="width:36px;height:36px;padding:0;justify-content:center;font-size:14px;">1</span>
+        <span class="mono" style="font-size:18px;font-weight:600;">find the customer</span>
+      </div>
+      <span class="mono text-xs" style="color:var(--color-ink-3);">3 min &middot; search tickets</span>
+    </div>
+
+    <div class="card in r" id="c2" style="margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="pill" style="width:36px;height:36px;padding:0;justify-content:center;font-size:14px;">2</span>
+        <span class="mono" style="font-size:18px;font-weight:600;">find the payment</span>
+      </div>
+      <span class="mono text-xs" style="color:var(--color-ink-3);">2 min &middot; match dodo pay_id</span>
+    </div>
+
+    <div class="card in r" id="c3" style="margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="pill" style="width:36px;height:36px;padding:0;justify-content:center;font-size:14px;">3</span>
+        <span class="mono" style="font-size:18px;font-weight:600;">check the policy</span>
+      </div>
+      <span class="mono text-xs" style="color:var(--color-ink-3);">4 min &middot; R1 to R6 rules</span>
+    </div>
+
+    <div class="card in r" id="c4" style="margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="pill" style="width:36px;height:36px;padding:0;justify-content:center;font-size:14px;">4</span>
+        <span class="mono" style="font-size:18px;font-weight:600;">work out the amount</span>
+      </div>
+      <span class="mono text-xs" style="color:var(--color-ink-3);">5 min &middot; proration arithmetic</span>
+    </div>
+
+    <div class="card in r" id="c5" style="margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="pill" style="width:36px;height:36px;padding:0;justify-content:center;font-size:14px;">5</span>
+        <span class="mono" style="font-size:18px;font-weight:600;">refund and reply</span>
+      </div>
+      <span class="mono text-xs" style="color:var(--color-ink-3);">3 min &middot; send email</span>
+    </div>
+
+    <!-- Compressed Purser card -->
+    <div class="card in s" id="purser-card" style="margin-top:24px;background:var(--color-signal);color:#fff;border:none;box-shadow:0 24px 60px -15px var(--color-signal-glow);display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="dot" style="background:#fff;box-shadow:0 0 14px #fff;"></span>
+        <div>
+          <div style="font-family:var(--serif);font-size:32px;">Purser &middot; Autonomous Queue</div>
+          <div class="mono" style="font-size:13px;opacity:0.85;margin-top:2px;">Runs overnight &middot; zero human touches on clear refunds</div>
+        </div>
+      </div>
+      <span class="pill w" style="font-size:13px;font-weight:700;">100% AUDITABLE</span>
+    </div>
+  </div>
+</div>
+
+<script>
+window.WIPE = "#EFE8DA";
+hud("0:19 - 0:35", "S02");
+
+window.run = function() {
+  on("#persona-badge", 0.4);
+  on("#headline", 0.8);
+  on("#c1", 1.2);
+  on("#c2", 2.0);
+  on("#c3", 2.8);
+  on("#c4", 3.6);
+  on("#c5", 4.4);
+  at(6.0, () => {
+    on("#purser-card", 0.1);
+  });
+};
+</script>
+</body>
+</html>

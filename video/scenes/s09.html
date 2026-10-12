@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="kit.css">
+<script src="kit.js"></script>
+<title>S09 Business</title>
+</head>
+<body>
+<div class="scene light">
+  <!-- Eyebrow & Headline -->
+  <div class="abs in f" id="head" style="top:90px;left:0;right:0;text-align:center;">
+    <div class="lab" style="color:var(--color-brass);letter-spacing:0.18em;margin-bottom:8px;">FINANCIAL PROJECTION &middot; CFO.AI INTEGRATION</div>
+    <div class="h2" style="font-size:54px;color:var(--color-ink);">Unit economics built on <em>measured</em> execution.</div>
+  </div>
+
+  <!-- Cards Row -->
+  <div class="abs in f" id="cards" style="top:270px;left:0;right:0;display:flex;justify-content:center;gap:36px;">
+    <!-- Measured Cost -->
+    <div class="card" style="width:360px;padding:32px 28px;text-align:center;">
+      <div class="k">Measured LLM &amp; Infra Cost</div>
+      <div class="mono" style="font-size:52px;font-weight:700;color:var(--color-signal);margin:16px 0;">$0.014</div>
+      <div class="mono text-xs" style="color:var(--color-ink-3);">Per ticket processed &middot; Gemini Flash tokens</div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="card" style="width:360px;padding:32px 28px;text-align:center;">
+      <div class="k">Target Founder Pricing</div>
+      <div class="mono" style="font-size:52px;font-weight:700;color:var(--color-ink);margin:16px 0;">$0.25</div>
+      <div class="mono text-xs" style="color:var(--color-ink-3);">Per resolved refund &middot; 94.4% gross margin</div>
+    </div>
+
+    <!-- Runway -->
+    <div class="card" style="width:360px;padding:32px 28px;text-align:center;border-left:4px solid var(--color-settled);">
+      <div class="k" style="color:var(--color-settled);">cfo.ai Projected Runway</div>
+      <div class="mono" style="font-size:52px;font-weight:700;color:var(--color-settled);margin:16px 0;">34 mo</div>
+      <div class="mono text-xs" style="color:var(--color-ink-3);">Self-sustaining operations at 5,000 tx/mo</div>
+    </div>
+  </div>
+
+  <!-- Footer citation -->
+  <div class="abs in f" id="foot" style="bottom:120px;left:0;right:0;text-align:center;">
+    <div class="mono text-sm" style="color:var(--color-ink-3);">
+      Financial modeling provided by cfo.ai &middot; docs/BUSINESS_PLAN.md
+    </div>
+  </div>
+</div>
+
+<script>
+window.WIPE = "#EFE8DA";
+hud("2:24 - 2:33", "S09");
+
+window.run = function() {
+  on("#head", 0.3);
+  on("#cards", 0.7);
+  on("#foot", 1.4);
+};
+</script>
+</body>
+</html>

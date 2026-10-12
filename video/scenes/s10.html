@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="kit.css">
+<script src="kit.js"></script>
+<title>S10 Close</title>
+<style>
+@keyframes sealSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.spinning-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 780px;
+  height: 780px;
+  transform: translate(-50%, -50%);
+  opacity: 0.08;
+  pointer-events: none;
+  animation: sealSpin 120s linear infinite;
+}
+</style>
+</head>
+<body>
+<div class="scene light">
+  <!-- Rotating LedgerSeal SVG in background -->
+  <div class="spinning-seal">
+    <svg viewBox="0 0 200 200" fill="none" style="width:100%;height:100%;">
+      <circle cx="100" cy="100" r="92" stroke="#A8792E" stroke-width="2.5" />
+      <circle cx="100" cy="100" r="82" stroke="#A8792E" stroke-width="1" stroke-dasharray="3 3" />
+      <circle cx="100" cy="100" r="68" stroke="#A8792E" stroke-width="1" />
+      <polygon points="100,20 106,85 100,95 94,85" fill="#A8792E" />
+      <polygon points="100,180 106,115 100,105 94,115" fill="#A8792E" opacity="0.8" />
+      <polygon points="20,100 85,106 95,100 85,94" fill="#A8792E" />
+      <polygon points="180,100 115,106 105,100 115,94" fill="#A8792E" opacity="0.8" />
+      <polygon points="43,43 88,92 92,88" fill="#A8792E" opacity="0.6" />
+      <polygon points="157,43 112,88 108,92" fill="#A8792E" opacity="0.6" />
+      <polygon points="43,157 88,108 92,112" fill="#A8792E" opacity="0.6" />
+      <polygon points="157,157 112,112 108,108" fill="#A8792E" opacity="0.6" />
+      <circle cx="100" cy="100" r="10" fill="#A8792E" />
+    </svg>
+  </div>
+
+  <!-- Center Content -->
+  <div class="abs in f" id="brand-block" style="top:200px;left:0;right:0;text-align:center;">
+    <h1 style="font-family:var(--serif);font-size:132px;letter-spacing:-0.03em;color:var(--color-ink);margin-bottom:12px;">
+      Purser
+    </h1>
+    
+    <div style="font-family:var(--serif);font-size:48px;font-style:italic;color:var(--color-ink-2);margin-bottom:44px;">
+      The trace is a witness. The ledger is the judge.
+    </div>
+
+    <!-- Live Ledger Final Row -->
+    <div class="in f" id="final-row" style="display:inline-flex;align-items:center;gap:24px;background:var(--color-paper-2);border:1px solid var(--color-paper-3);border-radius:12px;padding:14px 32px;font-family:var(--mono);font-size:16px;">
+      <span style="color:var(--color-signal);font-weight:700;">tkt_073</span>
+      <span style="color:var(--color-ink-3);">&middot;</span>
+      <span>refund $10.00</span>
+      <span style="color:var(--color-ink-3);">&middot;</span>
+      <span id="settled-status" style="display:flex;align-items:center;gap:8px;color:var(--color-signal);">
+        <span class="dot" style="background:var(--color-signal);box-shadow:0 0 12px var(--color-signal);"></span>
+        <span>IN-FLIGHT</span>
+      </span>
+    </div>
+
+    <!-- Links Footer -->
+    <div class="in f" id="links-row" style="margin-top:64px;display:flex;justify-content:center;gap:18px;">
+      <span class="pill w" style="font-size:14px;">github.com/0xkinno/purser</span>
+      <span class="pill" style="font-size:14px;background:var(--color-signal);">neatHack 2026</span>
+      <span class="pill a" style="font-size:14px;">Powered by neatlogs &middot; Entire &middot; cfo.ai</span>
+    </div>
+  </div>
+</div>
+
+<script>
+window.WIPE = "#EFE8DA";
+hud("2:33 - 2:50", "S10");
+
+window.run = function() {
+  on("#brand-block", 0.3);
+  on("#final-row", 0.8);
+  on("#links-row", 1.4);
+
+  // At 2:38, the in-flight blue dot resolves to settled green
+  at(4.6, () => {
+    const s = $("#settled-status");
+    if (s) {
+      s.style.color = "var(--color-settled)";
+      s.innerHTML = '<span class="dot" style="background:var(--color-settled);box-shadow:0 0 14px var(--color-settled);"></span> <span style="font-weight:700;">SETTLED &check;</span>';
+    }
+  });
+};
+</script>
+</body>
+</html>

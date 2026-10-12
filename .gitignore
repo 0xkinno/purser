@@ -41,3 +41,12 @@ evidence/private/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Video render artifacts
+video/out/
+video/scenes/clips/
+video/scenes/assets/*.webm
+video/audio/*.mp3
+video/audio/*.wav
+video/audio/*.key
+video_prompt_extracted.txt

@@ -1,0 +1,17 @@
+{"t": 0.12, "text": "INFO  purser.worker: Processing ticket 73 (customer: alex@example.com)"}
+{"t": 0.45, "text": "INFO  purser.kernel: Invariant checks P1-P12 passed. Rule R1 amount: $10.00"}
+{"t": 0.82, "text": "INFO  purser.log: State INTENDED written to log (hash: 4f9b2ca8...)"}
+{"t": 1.18, "text": "INFO  purser.reckon: Dead Reckoning precheck OK: no prior payment found"}
+{"t": 1.55, "text": "INFO  purser.log: State DISPATCHED written to log (hash: 8a1e3d04...)"}
+{"t": 2.10, "text": "INFO  purser.dodo: POST /refunds (reason: action_id:action_d04_live_bf92a:R1)"}
+{"t": 2.82, "text": "INFO  purser.dodo: Accepted: ref_0NpaM1zsPnunlGWyjXVD1 (amount: $10.00)"}
+{"t": 3.01, "text": "CHECKPOINT:after_dodo_call"}
+{"t": 3.15, "text": "FATAL purser.fault: Injected SIGKILL at checkpoint after_dodo_call"}
+{"t": 3.20, "text": "[Process terminated by signal 9 (SIGKILL)]"}
+{"t": 5.10, "text": "INFO  purser.worker: Worker restarting. Initializing Dead Reckoning protocol..."}
+{"t": 5.42, "text": "INFO  purser.log: Verifying local hash-chained log integrity: valid"}
+{"t": 5.89, "text": "INFO  purser.reckon: Querying Dodo Payments GET /payments/pay_0NpaKpGOLUoyAfHDBwLYo/refunds"}
+{"t": 6.45, "text": "INFO  purser.reckon: FOUND fingerprint action_id:action_d04_live_bf92a in ref_0NpaM1zsPnunlGWyjXVD1"}
+{"t": 6.82, "text": "INFO  purser.log: State ACCEPTED recorded from processor! Second refund: NONE"}
+{"t": 7.31, "text": "INFO  purser.witness: Filing Witness Statement to neatlogs: trace tr_wit_d04_9921"}
+{"t": 7.80, "text": "INFO  purser.worker: Ticket 73 recovery complete. Trace is whole."}

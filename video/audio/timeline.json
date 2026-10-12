@@ -1,0 +1,82 @@
+[
+  {
+    "id": "v1",
+    "scene": "s1",
+    "start": 2.5,
+    "end": 18.868,
+    "dur": 16.368,
+    "text": "It is two in the morning. An AI agent is clearing a founder's refund queue, one customer at a time. At ticket seventy three, the process dies. Who got paid? Who is about to get paid twice?"
+  },
+  {
+    "id": "v2",
+    "scene": "s2",
+    "start": 19.268,
+    "end": 34.988,
+    "dur": 15.72,
+    "text": "Maya runs a small software business on Dodo Payments. Every refund means find the customer, find the payment, check the policy, work out the amount, refund, reply. One mistake with money is permanent."
+  },
+  {
+    "id": "v3",
+    "scene": "s3",
+    "start": 35.388,
+    "end": 58.548,
+    "dur": 23.16,
+    "text": "So before building, we broke the tracing on purpose. We killed a traced worker mid run, twelve ways. With a hard kill at the default flush interval, the trace kept zero spans. Faster flushing saved most steps, but never the last one, and never the root. A trace is weakest the moment an agent dies."
+  },
+  {
+    "id": "v4",
+    "scene": "s4",
+    "start": 58.948,
+    "end": 72.268,
+    "dur": 13.32,
+    "text": "Then we tested the processor. The same refund, sent twice, was paid twice, even with an idempotency key. Retrying after a crash is how you refund a customer twice."
+  },
+  {
+    "id": "v5",
+    "scene": "s5",
+    "start": 72.668,
+    "end": 96.284,
+    "dur": 23.616,
+    "text": "Purser is built around that moment. Gemini reads each ticket, calls the tools, and proposes. It never sets an amount. A deterministic kernel computes it from the founder's policy and checks twelve invariants. Every refund is written to a hash chained log before money moves, with its fingerprint embedded in the refund itself."
+  },
+  {
+    "id": "v6",
+    "scene": "s6",
+    "start": 96.684,
+    "end": 119.34,
+    "dur": 22.656,
+    "text": "Here we kill it for real, right after Dodo accepts the refund and before Purser records it. On restart, Purser reads its log, asks Dodo what actually happened, finds its own fingerprint, and records the refund that already exists. No second payment. Then it files a witness statement, so the trace is whole again."
+  },
+  {
+    "id": "v7",
+    "scene": "s7",
+    "start": 119.74,
+    "end": 137.14,
+    "dur": 17.4,
+    "text": "In the morning, the founder reads one report. Every refund is reconciled against Dodo's ledger before the batch can close. Anything above the limit, or anything suspicious, waits for one click. The agent can never approve itself."
+  },
+  {
+    "id": "v8",
+    "scene": "s8",
+    "start": 137.54,
+    "end": 156.308,
+    "dur": 18.768,
+    "text": "neatlogs is how we found this, and how Purser checks its own testimony: one trace per ticket, each batch a session, and a witness statement for whatever a crash erased. Entire links every policy rule to the coding session where it was written, so a refund traces back to the founder's intent."
+  },
+  {
+    "id": "v9",
+    "scene": "s9",
+    "start": 156.708,
+    "end": 162.996,
+    "dur": 6.288,
+    "text": "cfo.ai turns the measured cost per ticket into pricing, margin and runway."
+  },
+  {
+    "id": "v10",
+    "scene": "s10",
+    "start": 163.396,
+    "end": 169.636,
+    "dur": 6.24,
+    "text": "Purser. The trace is a witness. The ledger is the judge."
+  }
+]

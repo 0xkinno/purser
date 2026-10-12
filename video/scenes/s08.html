@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="kit.css">
+<script src="kit.js"></script>
+<title>S08 Partners</title>
+</head>
+<body>
+<div class="scene cobalt">
+  <!-- Eyebrow & Headline -->
+  <div class="abs in f" id="head" style="top:70px;left:100px;right:100px;">
+    <div class="lab" style="color:var(--accent);letter-spacing:0.18em;margin-bottom:6px;">INTEGRATED PARTNER PLATFORMS</div>
+    <div class="h2" style="font-size:52px;color:#fff;">
+      The trace is a <em>witness</em>. The commit is the <em>intent</em>.
+    </div>
+  </div>
+
+  <!-- Left: neatlogs Platform Card -->
+  <div class="abs in l" id="neatlogs-col" style="left:100px;top:180px;width:780px;">
+    <div class="card d" style="padding:28px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:28px;font-weight:700;font-family:var(--serif);color:#fff;">neatlogs</span>
+          <span class="pill w" style="font-size:11px;padding:2px 10px;">SESSION INSTRUMENTATION</span>
+        </div>
+        <span class="mono text-xs" style="color:var(--accent);">neatlogs-cli &middot; OpenTelemetry</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="card d" style="background:rgba(255,255,255,0.06);padding:16px;">
+          <div class="mono" style="font-weight:700;font-size:15px;color:#fff;">1. One Trace Per Ticket</div>
+          <p class="mono text-xs" style="color:rgba(255,255,255,0.7);margin-top:4px;">
+            Every customer inquiry executes as a root WORKFLOW trace, enclosing all LLM queries and kernel gates.
+          </p>
+        </div>
+
+        <div class="card d" style="background:rgba(255,255,255,0.06);padding:16px;">
+          <div class="mono" style="font-weight:700;font-size:15px;color:#fff;">2. Entire Batch as a Session</div>
+          <p class="mono text-xs" style="color:rgba(255,255,255,0.7);margin-top:4px;">
+            The nightly queue is bound under a unified NeatLogs session for aggregate timing and failure correlation.
+          </p>
+        </div>
+
+        <div class="card d" style="background:rgba(255,255,255,0.06);padding:16px;border-left:4px solid #70FFA4;">
+          <div class="mono" style="font-weight:700;font-size:15px;color:#70FFA4;">3. Crash Witness Statements</div>
+          <p class="mono text-xs" style="color:rgba(255,255,255,0.7);margin-top:4px;">
+            When SIGKILL kills in-memory spans, Purser's Dead Reckoning reconstructs the event from the local log and files a witness statement.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Entire Provenance Card -->
+  <div class="abs in r" id="entire-col" style="right:100px;top:180px;width:840px;">
+    <div class="card d" style="padding:28px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:28px;font-weight:700;font-family:var(--serif);color:#fff;">Entire</span>
+          <span class="pill a" style="font-size:11px;padding:2px 10px;">CODE PROVENANCE</span>
+        </div>
+        <span class="mono text-xs" style="color:var(--accent);">entire.io/gh/0xkinno/purser</span>
+      </div>
+
+      <!-- Provenance Chain Visualization -->
+      <div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.1);margin-bottom:20px;">
+        <div class="mono text-xs" style="color:var(--accent);margin-bottom:12px;">RULE-TO-SESSION PROVENANCE CHAIN</div>
+        
+        <div style="display:flex;flex-direction:column;gap:12px;font-family:var(--mono);font-size:13px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="pill" style="font-size:11px;padding:2px 8px;">PAYOUT</span>
+            <span>ref_0NpaM1zsPnunlGWyjXVD1 ($10.00)</span>
+          </div>
+          <div style="padding-left:14px;color:rgba(255,255,255,0.4);">&darr; governed by policy rule</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="pill a" style="font-size:11px;padding:2px 8px;">RULE</span>
+            <span style="color:#FFD27D;">R1_full_within_14_days (POLICY.md)</span>
+          </div>
+          <div style="padding-left:14px;color:rgba(255,255,255,0.4);">&darr; authored in git commit</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="pill" style="font-size:11px;padding:2px 8px;">COMMIT</span>
+            <span>commit a70de5b (chore: project setup)</span>
+          </div>
+          <div style="padding-left:14px;color:rgba(255,255,255,0.4);">&darr; checkpoints live conversation</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="pill s" style="font-size:11px;padding:2px 8px;">ENTIRE</span>
+            <span style="color:#70FFA4;">checkpoint cp-purser-setup-01</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="mono text-xs" style="color:rgba(255,255,255,0.7);line-height:1.6;">
+        Every financial invariant in code links back to the founder's exact conversation and reasoning in Entire.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+window.WIPE = "#0B1240";
+hud("2:04 - 2:24", "S08");
+
+window.run = function() {
+  on("#head", 0.3);
+  on("#neatlogs-col", 0.7);
+  on("#entire-col", 1.4);
+};
+</script>
+</body>
+</html>

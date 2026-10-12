@@ -1,0 +1,28 @@
+{
+  "drill_id": "D04",
+  "name": "SIGKILL after Dodo accepts before local log ACCEPTED",
+  "status": "PASSED",
+  "mode": "live",
+  "timestamp": "2026-10-12T16:15:22.180Z",
+  "action_id": "action_d04_live_bf92a",
+  "payment_id": "pay_0NpaKpGOLUoyAfHDBwLYo",
+  "dodo_refund_id": "ref_0NpaM1zsPnunlGWyjXVD1",
+  "amount_cents": 1000,
+  "fingerprint": "action_id:action_d04_live_bf92a:R1_full_within_14_days",
+  "kill_signal": "SIGKILL",
+  "kill_checkpoint": "CHECKPOINT:after_dodo_call",
+  "restart_recovery": {
+    "dead_reckoning": true,
+    "found_fingerprint": true,
+    "second_refund_prevented": true,
+    "duplicate_created": false,
+    "state_restored": "ACCEPTED",
+    "witness_trace_id": "tr_wit_d04_9921",
+    "witness_statement_filed": true
+  },
+  "muster_reconciliation": {
+    "expected_cents": 1000,
+    "actual_cents": 1000,
+    "matched": true
+  }
+}

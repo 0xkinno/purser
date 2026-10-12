@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="kit.css">
+<script src="kit.js"></script>
+<title>S04 Paid Twice</title>
+</head>
+<body>
+<div class="scene light">
+  <!-- Eyebrow & Headline -->
+  <div class="abs in f" id="head" style="top:110px;left:0;right:0;text-align:center;">
+    <div class="lab" style="color:var(--color-alarm);letter-spacing:0.18em;margin-bottom:12px;">
+      EXPERIMENT E3 &middot; PROCESSOR IDEMPOTENCY VULNERABILITY
+    </div>
+    <h1 class="h1" style="font-size:72px;color:var(--color-ink);">
+      Two refunds. One customer. <em>Zero protection</em>.
+    </h1>
+  </div>
+
+  <!-- Pair 1: Direct duplicate call receipts -->
+  <div class="abs in f" id="pair1" style="top:270px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:36px;">
+    <!-- Receipt 1 -->
+    <div class="card" style="width:380px;background:#fff;border-top:4px dashed var(--color-paper-3);position:relative;">
+      <div class="k" style="color:var(--color-ink-3);">Dodo Payments Receipt #1</div>
+      <div class="mono" style="font-size:15px;font-weight:700;color:var(--color-ink);margin-bottom:8px;">
+        ref_0NpaM1zsPnunlGWyjXVD1
+      </div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:16px;">
+        <span class="mono" style="font-size:36px;font-weight:700;color:var(--color-ink);">$10.00</span>
+        <span class="pill s" style="font-size:12px;padding:4px 10px;">SUCCEEDED</span>
+      </div>
+      <div class="mono" style="font-size:12px;color:var(--color-ink-3);margin-top:12px;border-top:1px solid var(--color-paper-3);padding-top:10px;">
+        reason: test partial refund &middot; alex@example.com
+      </div>
+    </div>
+
+    <!-- Center Chip -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+      <span class="pill b" style="font-size:13px;font-weight:700;padding:6px 16px;">
+        SAME CALL SENT TWICE
+      </span>
+      <span class="mono text-xs" style="color:var(--color-ink-3);">&rarr; 2 distinct payouts &rarr;</span>
+    </div>
+
+    <!-- Receipt 2 -->
+    <div class="card" style="width:380px;background:#fff;border-top:4px dashed var(--color-paper-3);position:relative;">
+      <div class="k" style="color:var(--color-ink-3);">Dodo Payments Receipt #2</div>
+      <div class="mono" style="font-size:15px;font-weight:700;color:var(--color-alarm);margin-bottom:8px;">
+        ref_0NpaMDfHFfkiBtzfN4Fxz
+      </div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:16px;">
+        <span class="mono" style="font-size:36px;font-weight:700;color:var(--color-alarm);">$10.00</span>
+        <span class="pill s" style="font-size:12px;padding:4px 10px;">SUCCEEDED</span>
+      </div>
+      <div class="mono" style="font-size:12px;color:var(--color-ink-3);margin-top:12px;border-top:1px solid var(--color-paper-3);padding-top:10px;">
+        reason: test partial refund &middot; duplicate charge
+      </div>
+    </div>
+  </div>
+
+  <!-- Idempotency key warning banner -->
+  <div class="abs in f" id="idem-banner" style="top:580px;left:0;right:0;display:flex;justify-content:center;">
+    <div class="card" style="background:var(--color-paper-2);border:1px solid var(--color-alarm);display:flex;align-items:center;gap:24px;padding:16px 32px;">
+      <span class="pill b" style="font-weight:700;">HEADER TESTED</span>
+      <span class="mono" style="font-size:15px;color:var(--color-ink);">
+        Header <code style="background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;">Idempotency-Key</code> passed on POST /refunds
+      </span>
+      <span class="pill b" style="background:var(--color-alarm);color:#fff;">
+        HONOURED: FALSE
+      </span>
+    </div>
+  </div>
+
+  <!-- Punchline footer -->
+  <div class="abs in f" id="punchline" style="bottom:130px;left:0;right:0;text-align:center;">
+    <div class="mono" style="font-size:28px;font-weight:600;color:var(--color-ink);">
+      Retrying after a crash is how you refund a customer twice.
+    </div>
+    <div class="mono" style="font-size:13px;color:var(--color-ink-3);margin-top:10px;">
+      Source: evidence/discovery/e3_refund_idempotency.json &middot; Dodo Payments API Test Mode
+    </div>
+  </div>
+</div>
+
+<script>
+window.WIPE = "#EFE8DA";
+hud("0:58 - 1:12", "S04");
+
+window.run = function() {
+  on("#head", 0.3);
+  on("#pair1", 0.9);
+  on("#idem-banner", 2.2);
+  on("#punchline", 3.4);
+};
+</script>
+</body>
+</html>
