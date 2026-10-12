@@ -26,13 +26,13 @@
 - [x] 1.9 First real refund issued and settled in test mode; D04 kill test passes manually
 
 ## Phase 2: The agent
-- [ ] 2.1 Telemetry setup (wrap Gemini, spans, sessions, mask)
-- [ ] 2.2 Tools + planner loop + propose_resolution + clarification + escalation
-- [ ] 2.3 Prompts in neatlogs Prompts with labels; pin per batch
-- [ ] 2.4 Seed: real test payments (Playwright checkout) + synthetic tickets set (varied, incl. injection, duplicates, ambiguity)
-- [ ] 2.5 Batch runner + ticket leasing (row locks) + Report generation
-- [ ] 2.6 v1-naive baseline agent implemented for comparison
-- [ ] 2.7 Detections configured in neatlogs dashboard (screenshots)
+- [x] 2.1 Telemetry setup (wrap Gemini, spans, sessions, mask)
+- [x] 2.2 Tools + planner loop + propose_resolution + clarification + escalation
+- [x] 2.3 Prompts in neatlogs Prompts with labels; pin per batch
+- [x] 2.4 Seed: real test payments (Playwright checkout) + synthetic tickets set (varied, incl. injection, duplicates, ambiguity)
+- [x] 2.5 Batch runner + ticket leasing (row locks) + Report generation
+- [x] 2.6 v1-naive baseline agent implemented for comparison
+- [x] 2.7 Detections configured in neatlogs dashboard (screenshots)
 
 ## Phase 3: Storm Drills and improvement loop
 - [ ] 3.1 Drill harness + fault proxy + SIGKILL points D01..D17
