@@ -14,9 +14,9 @@
 
 </div>
 
-| Live product | Demo video (3 min) | Verify a batch | Build log | neatHack |
+| Live product | Demo video | Verify a batch | Build log | neatHack |
 |---|---|---|---|---|
-| [purser.app](https://purser.app) | [Watch Demo](https://purser.app/demo) | [Client Verifier](https://purser.app/verify) | [hackathon.md](hackathon.md) | One track: Build an agent that works |
+| [purser-xi.vercel.app](https://purser-xi.vercel.app) | [Watch on X](https://x.com/0xkiddok/status/2109725303907971391) | [Client Verifier](https://purser-xi.vercel.app/verify) | [hackathon.md](hackathon.md) | One track: Build an agent that works |
 
 ---
 
