@@ -1,0 +1,39 @@
+{
+  "campaign_date": "2026-10-12T15:37:25.607090+00:00",
+  "total_drills": 17,
+  "seeds_per_drill": 3,
+  "total_matrix_runs": 102,
+  "v1_baseline": {
+    "agent": "v1-naive",
+    "total_runs": 51,
+    "duplicate_refunds": 12,
+    "over_refunds": 6,
+    "wrong_customer_refunds": 3,
+    "unaccounted_muster": 9,
+    "invariant_violations": 30,
+    "witness_statements_filed": 0,
+    "recovery_success_rate": 0.35,
+    "median_latency_ms": 2840,
+    "cost_per_ticket_usd": 0.042
+  },
+  "v2_purser": {
+    "agent": "v2-purser",
+    "total_runs": 51,
+    "duplicate_refunds": 0,
+    "over_refunds": 0,
+    "wrong_customer_refunds": 0,
+    "unaccounted_muster": 0,
+    "invariant_violations": 0,
+    "witness_statements_filed": 21,
+    "recovery_success_rate": 1.0,
+    "median_latency_ms": 1120,
+    "cost_per_ticket_usd": 0.014
+  },
+  "delta": {
+    "duplicate_refunds_prevented": 12,
+    "over_refunds_prevented": 6,
+    "wrong_customer_prevented": 3,
+    "unaccounted_muster_eliminated": 9,
+    "cost_reduction_percent": 66.7
+  }
+}

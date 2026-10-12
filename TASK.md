@@ -35,12 +35,12 @@
 - [x] 2.7 Detections configured in neatlogs dashboard (screenshots)
 
 ## Phase 3: Storm Drills and improvement loop
-- [ ] 3.1 Drill harness + fault proxy + SIGKILL points D01..D17
-- [ ] 3.2 Run full matrix for v1 and v2, seeds ≥ 3; results.json + summary.json
-- [ ] 3.3 Use neatlogs Investigate/Fixes/MCP on v1 failures; record Fix ids and the changes made
-- [ ] 3.4 Before/after trace pair for the same ticket; numbers generated
-- [ ] 3.5 Impact-scoped drills via entire graph impact; output committed
-- [ ] 3.6 Provenance: rule → commit → checkpoint resolved for every rule id
+- [x] 3.1 Drill harness + fault proxy + SIGKILL points D01..D17
+- [x] 3.2 Run full matrix for v1 and v2, seeds ≥ 3; results.json + summary.json
+- [x] 3.3 Use neatlogs Investigate/Fixes/MCP on v1 failures; record Fix ids and the changes made
+- [x] 3.4 Before/after trace pair for the same ticket; numbers generated
+- [x] 3.5 Impact-scoped drills via entire graph impact; output committed
+- [x] 3.6 Provenance: rule → commit → checkpoint resolved for every rule id
 
 ## Phase 4: Product UI
 - [ ] 4.1 Design tokens, fonts, paper grain, capsule nav
