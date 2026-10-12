@@ -1,20 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #F5F0E6;        /* warm paper base */
-  --color-paper-2: #EFE8DA;      /* card surface */
-  --color-paper-3: #E6DDCB;      /* rule lines, wells */
-  --color-ink: #16130F;          /* primary text */
-  --color-ink-2: #4A443B;        /* secondary text */
-  --color-ink-3: #8A8275;        /* captions, meta */
-  --color-signal: #2B44FF;       /* electric ultramarine: live state, primary action */
+  --color-paper: #F5F0E6;
+  --color-paper-2: #EFE8DA;
+  --color-paper-3: #E6DDCB;
+  --color-ink: #16130F;
+  --color-ink-2: #4A443B;
+  --color-ink-3: #8A8275;
+  --color-signal: #2B44FF;
   --color-signal-glow: rgba(43, 68, 255, 0.35);
-  --color-brass: #A8792E;        /* nautical accent for seals, provenance */
-  --color-settled: #1F7A4D;      /* settled / pass */
-  --color-alarm: #C2361F;        /* fail / uncertain */
-  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
-  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --color-brass: #A8792E;
+  --color-settled: #1F7A4D;
+  --color-alarm: #C2361F;
   --radius-capsule: 14px;
 }
 

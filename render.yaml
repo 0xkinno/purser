@@ -2,7 +2,7 @@ services:
   - type: web
     name: purser-api
     runtime: python
-    buildCommand: uv pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt
     startCommand: uvicorn services.purser.api.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /healthz
     envVars:
@@ -38,7 +38,7 @@ services:
   - type: worker
     name: purser-worker
     runtime: python
-    buildCommand: uv pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt
     startCommand: python -m services.purser.agent.runner
     envVars:
       - key: PYTHON_VERSION
