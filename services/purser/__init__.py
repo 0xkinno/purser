@@ -1,3 +1,0 @@
-"""
-Purser Services Package
-"""

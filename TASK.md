@@ -15,15 +15,15 @@
 - [x] 0.12 DISCOVERY.md written; final gate checklist all true
 
 ## Phase 1: Mechanism (prove the hardest claim first)
-- [ ] 1.1 Supabase schema + migrations
-- [ ] 1.2 Log with hash chain + tests (P7, P11)
-- [ ] 1.3 Kernel: rules R1..Rn from POLICY.md + P1..P12 checks + unit + property tests
-- [ ] 1.4 Dodo client + reconciliation (`find_refund_for_action`) per E3 outcome
-- [ ] 1.5 Money protocol `execute_refund` + Dead Reckoning
-- [ ] 1.6 Webhook receiver with signature verification; settlement updates (P6)
-- [ ] 1.7 Muster + manifest export + offline verifier CLI + tamper tests
-- [ ] 1.8 Witness Statement builder + completeness audit via neatlogs MCP/API (P10)
-- [ ] 1.9 First real refund issued and settled in test mode; D04 kill test passes manually
+- [x] 1.1 Supabase schema + migrations
+- [x] 1.2 Log with hash chain + tests (P7, P11)
+- [x] 1.3 Kernel: rules R1..Rn from POLICY.md + P1..P12 checks + unit + property tests
+- [x] 1.4 Dodo client + reconciliation (`find_refund_for_action`) per E3 outcome
+- [x] 1.5 Money protocol `execute_refund` + Dead Reckoning
+- [x] 1.6 Webhook receiver with signature verification; settlement updates (P6)
+- [x] 1.7 Muster + manifest export + offline verifier CLI + tamper tests
+- [x] 1.8 Witness Statement builder + completeness audit via neatlogs MCP/API (P10)
+- [x] 1.9 First real refund issued and settled in test mode; D04 kill test passes manually
 
 ## Phase 2: The agent
 - [ ] 2.1 Telemetry setup (wrap Gemini, spans, sessions, mask)

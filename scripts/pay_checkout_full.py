@@ -1,5 +1,6 @@
 """
 Complete full automated test checkout in Dodo Payments test mode.
+Robustly targets the iframe element directly and waits for inputs.
 """
 
 import asyncio
@@ -9,7 +10,7 @@ dotenv.load_dotenv()
 from dodopayments import DodoPayments
 from playwright.async_api import async_playwright
 
-async def complete_test_payment(email="test_customer_1@example.com", name="Alex Morgan"):
+async def complete_test_payment(email="test_customer_funds@example.com", name="Alex Morgan"):
     api_key = os.getenv("DODO_PAYMENTS_API_KEY")
     product_id = os.getenv("DODO_PRODUCT_ID")
     env = os.getenv("DODO_PAYMENTS_ENVIRONMENT", "test_mode")
@@ -45,81 +46,72 @@ async def complete_test_payment(email="test_customer_1@example.com", name="Alex 
         page = await context.new_page()
         await page.add_init_script("delete Object.getPrototypeOf(navigator).webdriver")
         
-        await page.goto(session.checkout_url, wait_until="load")
+        await page.goto(session.checkout_url, wait_until="networkidle")
         
-        # Click "Continue to Payment"
         btn = page.get_by_role("button", name="Continue to Payment")
         await btn.click()
-        print("Clicked 'Continue to Payment'. Polling for Hyperswitch card frame...", flush=True)
+        print("Clicked 'Continue to Payment'. Waiting for card iframe element...", flush=True)
         
-        card_frame = None
-        for i in range(20):
-            await page.wait_for_timeout(1000)
-            for f in page.frames:
-                if "hs.dodopayments.com" in f.url:
-                    try:
-                        inps = await f.query_selector_all("input")
-                        if len(inps) >= 3:
-                            card_frame = f
-                            break
-                    except Exception:
-                        pass
-            if card_frame:
-                print(f"Hyperswitch card frame ready at second {i+1}!", flush=True)
-                break
-                
-        if not card_frame:
-            raise RuntimeError("Hyperswitch card frame timed out!")
-            
-        # Give iframe height if needed
+        # Wait for iframe element in DOM
+        await page.wait_for_selector("iframe#dodo-checkout-iframe-payment", state="attached", timeout=30000)
+        
+        # Ensure iframe is visible and has height
         await page.evaluate("""() => {
-            const iframes = document.querySelectorAll('iframe');
-            for (let f of iframes) {
-                if (f.src && f.src.includes('hs.dodopayments.com')) {
-                    f.style.height = '400px';
-                    f.style.display = 'block';
-                    f.style.visibility = 'visible';
-                }
+            const f = document.querySelector('iframe#dodo-checkout-iframe-payment');
+            if (f) {
+                f.style.height = '450px';
+                f.style.display = 'block';
+                f.style.visibility = 'visible';
             }
         }""")
         
-        # Fill inputs
-        card_num_inp = card_frame.locator("input[placeholder*='1234']").first
-        await card_num_inp.fill("4242424242424242", force=True)
+        frame_element = await page.query_selector("iframe#dodo-checkout-iframe-payment")
+        card_frame = await frame_element.content_frame()
+        
+        print("Waiting for card input in iframe...", flush=True)
+        # Poll inside card frame
+        card_inp = None
+        for i in range(25):
+            await page.wait_for_timeout(1000)
+            try:
+                card_inp = await card_frame.wait_for_selector("input[placeholder*='1234']", timeout=1000)
+                if card_inp:
+                    print(f"Found card input at second {i+1}!", flush=True)
+                    break
+            except Exception:
+                pass
+                
+        if not card_inp:
+            raise RuntimeError("Card input was not found in iframe!")
+            
+        await card_inp.fill("4242424242424242", force=True)
         print("Filled card number.", flush=True)
         await page.wait_for_timeout(500)
         
-        exp_inp = card_frame.locator("input[placeholder*='YY']").first
+        exp_inp = await card_frame.wait_for_selector("input[placeholder*='YY']", timeout=3000)
         await exp_inp.fill("0632", force=True)
         print("Filled expiry.", flush=True)
         await page.wait_for_timeout(500)
         
-        cvc_inp = card_frame.locator("input[placeholder*='CVC']").first
+        cvc_inp = await card_frame.wait_for_selector("input[placeholder*='CVC']", timeout=3000)
         await cvc_inp.fill("123", force=True)
         print("Filled CVC.", flush=True)
         await page.wait_for_timeout(1500)
         
-        await page.screenshot(path="evidence/discovery/card_filled.png")
-        print("Saved card_filled.png screenshot.", flush=True)
-        
-        # Click "Pay now"
-        pay_btn = page.locator("button#submit, button:has-text('Pay now')").first
+        # Enable and click submit
         await page.evaluate("() => { const b = document.querySelector('button#submit'); if (b) b.removeAttribute('disabled'); }")
+        pay_btn = page.locator("button#submit, button:has-text('Pay now')").first
         await pay_btn.click(force=True)
         print("Clicked 'Pay now'! Waiting for confirmation...", flush=True)
         
-        # Wait for redirect / confirmation
         await page.wait_for_timeout(10000)
-        await page.screenshot(path="evidence/discovery/payment_success.png")
         print(f"Final Page URL: {page.url}", flush=True)
-        
         await browser.close()
         
     print("Checking payment status in Dodo API...", flush=True)
-    payments = client.payments.list(page_size=10)
-    print(f"Total payments found: {len(payments.items)}")
+    payments = client.payments.list(page_size=5)
     for pay in payments.items:
-        print(f" Payment: id={pay.payment_id}, status={pay.status}, amount={pay.total_amount}, customer={pay.customer.email if pay.customer else None}")
+        print(f" Payment: id={pay.payment_id}, status={pay.status}, amount={pay.total_amount}")
         
     return payments.items
 
