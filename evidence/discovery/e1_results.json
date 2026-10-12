@@ -1,0 +1,134 @@
+[
+  {
+    "kill_signal": "SIGKILL",
+    "flush_interval": 5.0,
+    "killed_at_step": 3,
+    "spans_executed": 3,
+    "spans_received": 0,
+    "root_present": false,
+    "last_step_visible": 0,
+    "trace_id": null,
+    "notes": "Process killed before first 5.0s flush interval. All spans lost."
+  },
+  {
+    "kill_signal": "SIGKILL",
+    "flush_interval": 5.0,
+    "killed_at_step": 12,
+    "spans_executed": 12,
+    "spans_received": 0,
+    "root_present": false,
+    "last_step_visible": 0,
+    "trace_id": null,
+    "notes": "Process lived 3.8s (< 5.0s flush interval). SIGKILL prevented OTel buffer flush. Entire trace lost."
+  },
+  {
+    "kill_signal": "SIGKILL",
+    "flush_interval": 5.0,
+    "killed_at_step": 19,
+    "spans_executed": 19,
+    "spans_received": 0,
+    "root_present": false,
+    "last_step_visible": 0,
+    "trace_id": null,
+    "notes": "Spans buffered in memory lost on SIGKILL before batch exporter drained."
+  },
+  {
+    "kill_signal": "SIGKILL",
+    "flush_interval": 1.0,
+    "killed_at_step": 3,
+    "spans_executed": 3,
+    "spans_received": 0,
+    "root_present": false,
+    "last_step_visible": 0,
+    "trace_id": null,
+    "notes": "Process killed at ~0.9s before first 1.0s batch export cycle."
+  },
+  {
+    "kill_signal": "SIGKILL",
+    "flush_interval": 1.0,
+    "killed_at_step": 12,
+    "spans_executed": 12,
+    "spans_received": 9,
+    "root_present": false,
+    "last_step_visible": 9,
+    "trace_id": null,
+    "notes": "Tail truncation: spans 10-12 in flight at death were lost. Root span remained unclosed."
+  },
+  {
+    "kill_signal": "SIGKILL",
+    "flush_interval": 1.0,
+    "killed_at_step": 19,
+    "spans_executed": 19,
+    "spans_received": 19,
+    "root_present": false,
+    "last_step_visible": 18,
+    "trace_id": "420907d0d27f87fdd570be65d35af6b1",
+    "notes": "Tail truncated at step 18. Root span 'purser.e1.root' lost because it was open at death."
+  },
+  {
+    "kill_signal": "SIGKILL",
+    "flush_interval": 0.2,
+    "killed_at_step": 3,
+    "spans_executed": 3,
+    "spans_received": 2,
+    "root_present": false,
+    "last_step_visible": 2,
+    "trace_id": null,
+    "notes": "Step 3 lost; root unclosed."
+  },
+  {
+    "kill_signal": "SIGKILL",
+    "flush_interval": 0.2,
+    "killed_at_step": 12,
+    "spans_executed": 12,
+    "spans_received": 11,
+    "root_present": false,
+    "last_step_visible": 11,
+    "trace_id": null,
+    "notes": "Rapid flush salvaged steps 1-11, but step 12 lost and root unclosed."
+  },
+  {
+    "kill_signal": "SIGKILL",
+    "flush_interval": 0.2,
+    "killed_at_step": 19,
+    "spans_executed": 19,
+    "spans_received": 18,
+    "root_present": false,
+    "last_step_visible": 17,
+    "trace_id": "d816c3b156095287a3d9b02670088647",
+    "notes": "Steps 1-17 exported. Active step 18-19 lost. Root span was open and never exported."
+  },
+  {
+    "kill_signal": "SIGTERM",
+    "flush_interval": 5.0,
+    "killed_at_step": 12,
+    "spans_executed": 12,
+    "spans_received": 13,
+    "root_present": true,
+    "last_step_visible": 12,
+    "trace_id": "45525d95d31f766f2b9a3ace17938d64",
+    "notes": "SIGTERM caught by SDK shutdown handler; queue drained, root exported successfully."
+  },
+  {
+    "kill_signal": "SIGTERM",
+    "flush_interval": 1.0,
+    "killed_at_step": 12,
+    "spans_executed": 12,
+    "spans_received": 13,
+    "root_present": true,
+    "last_step_visible": 12,
+    "trace_id": "1aeb382496de5b635aead99243f266e2",
+    "notes": "SIGTERM caught by SDK shutdown handler; queue drained, root exported successfully."
+  },
+  {
+    "kill_signal": "SIGTERM",
+    "flush_interval": 0.2,
+    "killed_at_step": 12,
+    "spans_executed": 12,
+    "spans_received": 13,
+    "root_present": true,
+    "last_step_visible": 12,
+    "trace_id": "c6542739d4eb9c3a4e18f8e4b947178a",
+    "notes": "SIGTERM caught by SDK shutdown handler; queue drained, root exported successfully."
+  }
+]

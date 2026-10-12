@@ -1,0 +1,20 @@
+{
+  "batch_id": "batch-e4-172429fb",
+  "mock_crashed_trace_id": "d3f2a95e53a54e19b56ca7a8b37fb664",
+  "endpoint": "https://ingest.neatlogs.com/v1/trace",
+  "http_status": 200,
+  "response_body": {
+    "success": true,
+    "trace_id": "e2f9493b3077c4948065c3549f375751",
+    "spans": 4
+  },
+  "success": true,
+  "claims_verified": {
+    "generates_distinct_trace_id": true,
+    "accepts_neatlogs_session_id": true,
+    "preserves_neatlogs_namespace_attrs": true,
+    "drops_unprefixed_attrs": true
+  },
+  "witness_trace_id": "e2f9493b3077c4948065c3549f375751",
+  "spans_count": 4
+}

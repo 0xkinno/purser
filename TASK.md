@@ -7,12 +7,12 @@
 - [x] 0.4 Clone all reference repos into `reference/` (Section 13); write `reference/NOTES.md` (gitignored): strengths, weaknesses, ideas to exceed
 - [x] 0.5 Read every official source in Section 1; write `hackathon.md` header
 - [x] 0.6 neatlogs project created; SDK Doctor local + probe pass (save JSON)
-- [ ] 0.7 E1 crash truncation experiment run in WSL/Docker; results JSON + dashboard screenshots
-- [ ] 0.8 E2 refund lifecycle in Dodo test mode (incl. automated test checkout)
-- [ ] 0.9 E3 refund idempotency and fingerprint round-trip
-- [ ] 0.10 E4 Witness Statement in same session
-- [ ] 0.11 E5 prompt label drift
-- [ ] 0.12 DISCOVERY.md written; final gate checklist all true
+- [x] 0.7 E1 crash truncation experiment run in WSL/Docker; results JSON + dashboard screenshots
+- [x] 0.8 E2 refund lifecycle in Dodo test mode (incl. automated test checkout)
+- [x] 0.9 E3 refund idempotency and fingerprint round-trip
+- [x] 0.10 E4 Witness Statement in same session
+- [x] 0.11 E5 prompt label drift
+- [x] 0.12 DISCOVERY.md written; final gate checklist all true
 
 ## Phase 1: Mechanism (prove the hardest claim first)
 - [ ] 1.1 Supabase schema + migrations

@@ -1,0 +1,102 @@
+{
+  "prompt_name": "purser-planner-49e146",
+  "v1_version": 1,
+  "v2_version": 2,
+  "batch_pinned_version": 1,
+  "total_tickets": 10,
+  "drift_detected_in_dynamic": true,
+  "drift_tickets_count": 5,
+  "ticket_events": [
+    {
+      "ticket": 1,
+      "phase": "pre-drift",
+      "dynamic_version": 1,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": false
+    },
+    {
+      "ticket": 2,
+      "phase": "pre-drift",
+      "dynamic_version": 1,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": false
+    },
+    {
+      "ticket": 3,
+      "phase": "pre-drift",
+      "dynamic_version": 1,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": false
+    },
+    {
+      "ticket": 4,
+      "phase": "pre-drift",
+      "dynamic_version": 1,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": false
+    },
+    {
+      "ticket": 5,
+      "phase": "pre-drift",
+      "dynamic_version": 1,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": false
+    },
+    {
+      "ticket": 6,
+      "phase": "post-drift",
+      "dynamic_version": 2,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v2. Updated discretionary policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": true
+    },
+    {
+      "ticket": 7,
+      "phase": "post-drift",
+      "dynamic_version": 2,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v2. Updated discretionary policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": true
+    },
+    {
+      "ticket": 8,
+      "phase": "post-drift",
+      "dynamic_version": 2,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v2. Updated discretionary policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": true
+    },
+    {
+      "ticket": 9,
+      "phase": "post-drift",
+      "dynamic_version": 2,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v2. Updated discretionary policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": true
+    },
+    {
+      "ticket": 10,
+      "phase": "post-drift",
+      "dynamic_version": 2,
+      "pinned_version": 1,
+      "dynamic_text": "You are Purser Policy Planner v2. Updated discretionary policy.",
+      "pinned_text": "You are Purser Policy Planner v1. Strict refund policy.",
+      "drift_detected": true
+    }
+  ],
+  "conclusion": "Fetching by label causes unpinned mid-batch prompt drift (H5 confirmed). Purser's invariant: resolve label once at batch start, record pinned_version in Log, and fetch strictly by version for all tickets in the batch."
+}

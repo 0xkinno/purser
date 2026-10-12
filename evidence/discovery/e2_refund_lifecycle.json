@@ -1,0 +1,115 @@
+{
+  "experiment": "E2",
+  "title": "Dodo Payments Refund Lifecycle and Processor Truth",
+  "timestamp": "2026-10-12T15:07:23.145741+00:00",
+  "hypothesis": "H2: Created is not refunded, processor truth vs trace truth",
+  "findings": [],
+  "payment_tested": {
+    "payment_id": "pay_0NpaKpGOLUoyAfHDBwLYo",
+    "customer_email": "test_customer_1@example.com",
+    "total_amount": 2898,
+    "currency": "USD",
+    "initial_refund_status": "partial",
+    "refund_count": 5
+  },
+  "refunds_recorded": [
+    {
+      "refund_id": "ref_0NpaM1zsPnunlGWyjXVD1",
+      "amount": 1000,
+      "status": "succeeded",
+      "is_partial": true,
+      "reason": "test partial refund",
+      "created_at": "2026-10-12T14:54:38.079954+00:00"
+    },
+    {
+      "refund_id": "ref_0NpaMDfHFfkiBtzfN4Fxz",
+      "amount": 1000,
+      "status": "succeeded",
+      "is_partial": true,
+      "reason": "test partial refund",
+      "created_at": "2026-10-12T14:55:37.448382+00:00"
+    },
+    {
+      "refund_id": "ref_0NpaMa3ltU50egHQZbmRc",
+      "amount": 100,
+      "status": "succeeded",
+      "is_partial": true,
+      "reason": "test idem key 1",
+      "created_at": "2026-10-12T14:57:31.398758+00:00"
+    },
+    {
+      "refund_id": "ref_0NpaMaLrkoUpVhwlv0XXC",
+      "amount": 100,
+      "status": "succeeded",
+      "is_partial": true,
+      "reason": "test idem key 1",
+      "created_at": "2026-10-12T14:57:32.884063+00:00"
+    },
+    {
+      "refund_id": "ref_0NpaN0EKOSa4v4wteYaRy",
+      "amount": 98,
+      "status": "succeeded",
+      "is_partial": true,
+      "reason": "refund small amount",
+      "created_at": "2026-10-12T14:59:44.559251+00:00"
+    }
+  ],
+  "over_refund_constraint": {
+    "attempted_amount": 2500,
+    "result": "rejected",
+    "error": {
+      "error_type": "BadRequestError",
+      "message": "Error code: 400 - {'code': 'LINE_ITEM_REFUND_AMOUNT_TOO_HIGH', 'message': 'Line item pdt_0NpVqdp9sd9ObPx1OcIfc requested refund amount including tax is 2500 which is above the refundable amount 600'}"
+    }
+  },
+  "no_items_constraint": {
+    "error": {
+      "error_type": "ConflictError",
+      "message": "Error code: 409 - {'code': 'INSUFFICIENT_WALLET_FUNDS', 'message': 'Insufficient funds in wallet'}"
+    }
+  },
+  "ledger_entries_sample": [
+    {
+      "id": "ble_0NpaO6hpXMtRcFmHWbcDh",
+      "event_type": "refund_fees",
+      "amount": 100,
+      "is_credit": false,
+      "after_balance": 0
+    },
+    {
+      "id": "ble_0NpaO6hexYE8lNC81FDPL",
+      "event_type": "refund",
+      "amount": 2498,
+      "is_credit": false,
+      "after_balance": 100
+    },
+    {
+      "id": "ble_0NpaNXACsi6Hy3H7KmtwD",
+      "event_type": "payment_fees",
+      "amount": 200,
+      "is_credit": false,
+      "after_balance": 2598
+    },
+    {
+      "id": "ble_0NpaNXA679HGcwAybqM7i",
+      "event_type": "payment",
+      "amount": 2898,
+      "is_credit": true,
+      "after_balance": 2798
+    },
+    {
+      "id": "ble_0NpaN0F2ySADQpQ61eosN",
+      "event_type": "refund_fees",
+      "amount": 100,
+      "is_credit": false,
+      "after_balance": -100
+    },
+    {
+      "id": "ble_0NpaN0EtuOVc7sKro0EDq",
+      "event_type": "refund",
+      "amount": 98,
+      "is_credit": false,
+      "after_balance": 0
+    }
+  ]
+}

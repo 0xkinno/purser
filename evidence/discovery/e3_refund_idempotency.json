@@ -1,0 +1,65 @@
+{
+  "experiment": "E3",
+  "title": "Dodo Payments Refund Idempotency and Dead Reckoning",
+  "timestamp": "2026-10-12T15:09:32.928804+00:00",
+  "hypothesis": "H3: Retry is not idempotent at processor; Dead Reckoning requires embedded action_id in reason",
+  "findings": {
+    "duplicate_call_without_header": {
+      "call_1_refund_id": "ref_0NpaM1zsPnunlGWyjXVD1",
+      "call_1_amount": 1000,
+      "call_1_status": "succeeded",
+      "call_2_refund_id": "ref_0NpaMDfHFfkiBtzfN4Fxz",
+      "call_2_amount": 1000,
+      "call_2_status": "succeeded",
+      "is_idempotent": false,
+      "conclusion": "Naive retry creates multiple distinct refunds until balance or wallet funds are exhausted."
+    },
+    "idempotency_key_header_support": {
+      "header_used": "Idempotency-Key: purser-idem-test-key-12345",
+      "call_1_refund_id": "ref_0NpaMa3ltU50egHQZbmRc",
+      "call_1_amount": 100,
+      "call_2_refund_id": "ref_0NpaMaLrkoUpVhwlv0XXC",
+      "call_2_amount": 100,
+      "honored_by_processor": false,
+      "conclusion": "Dodo Payments refund endpoint does NOT enforce idempotency via the Idempotency-Key header. Processor creates duplicate records."
+    },
+    "reason_field_roundtrip": {
+      "tested_payment_id": "pay_0NpaKpGOLUoyAfHDBwLYo",
+      "refunds_in_payment_object": [
+        {
+          "refund_id": "ref_0NpaM1zsPnunlGWyjXVD1",
+          "amount": 1000,
+          "reason": "test partial refund",
+          "status": "succeeded"
+        },
+        {
+          "refund_id": "ref_0NpaMDfHFfkiBtzfN4Fxz",
+          "amount": 1000,
+          "reason": "test partial refund",
+          "status": "succeeded"
+        },
+        {
+          "refund_id": "ref_0NpaMa3ltU50egHQZbmRc",
+          "amount": 100,
+          "reason": "test idem key 1",
+          "status": "succeeded"
+        },
+        {
+          "refund_id": "ref_0NpaMaLrkoUpVhwlv0XXC",
+          "amount": 100,
+          "reason": "test idem key 1",
+          "status": "succeeded"
+        },
+        {
+          "refund_id": "ref_0NpaN0EKOSa4v4wteYaRy",
+          "amount": 98,
+          "reason": "refund small amount",
+          "status": "succeeded"
+        }
+      ],
+      "direct_retrieve_reason": "test partial refund",
+      "direct_retrieve_metadata": {},
+      "conclusion": "The reason field round-trips reliably across both payments.retrieve().refunds and refunds.retrieve(). However, metadata is not exposed in list/nested views. Therefore, Purser MUST embed deterministic action_id fingerprints inside the reason field (e.g., 'action_id:<sha256[:24]>:<rule_id>') to enable Dead Reckoning reconciliation."
+    }
+  }
+}
