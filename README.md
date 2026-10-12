@@ -20,6 +20,35 @@
 
 ---
 
+### Product Interface
+
+<div align="center">
+<table>
+  <tr>
+    <td width="50%">
+      <strong>The Operational Report</strong>
+      <img src="docs/assets/product_report.png" alt="The Operational Report" width="100%" />
+    </td>
+    <td width="50%">
+      <strong>Ticket Dossier & State Machine</strong>
+      <img src="docs/assets/product_dossier.png" alt="Ticket Dossier" width="100%" />
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <strong>Storm Drills Comparative Matrix</strong>
+      <img src="docs/assets/product_drills.png" alt="Storm Drills Matrix" width="100%" />
+    </td>
+    <td width="50%">
+      <strong>Runtime Provenance Chain</strong>
+      <img src="docs/assets/product_provenance.png" alt="Runtime Provenance" width="100%" />
+    </td>
+  </tr>
+</table>
+</div>
+
+---
+
 ## The 2 a.m. problem
 
 At 2:14 a.m., an autonomous background worker was processing an overnight backlog of customer refund requests. On ticket 73, a container host evicted the pod or experienced an unhandled network timeout during the processor call. The script crashed.

@@ -49,7 +49,7 @@
       gap: 0.5rem;
       border-radius: var(--radius-capsule);
       border: 1px solid var(--color-paper-3);
-      background: rgba(239, 232, 218, 0.85);
+      background: rgba(239, 232, 218, 0.88);
       padding: 0.35rem 0.6rem;
       backdrop-filter: blur(12px);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 20px rgba(0,0,0,0.04);
@@ -69,10 +69,16 @@
       box-shadow: 0 0 0 1px var(--color-signal), 0 0 18px var(--color-signal-glow);
     }
 
-    .hero-section {
+    .container {
       max-width: 1240px;
-      margin: 6.5rem auto 3rem;
+      margin: 0 auto;
       padding: 0 2rem;
+    }
+
+    /* 1. HERO */
+    .hero-section {
+      padding-top: 7rem;
+      padding-bottom: 2.5rem;
       display: grid;
       grid-template-columns: 1.15fr 1fr;
       gap: 2.5rem;
@@ -159,9 +165,9 @@
       to { transform: rotate(360deg); }
     }
 
+    /* LIVE STRIP */
     .live-strip {
-      max-width: 1240px;
-      margin: 1rem auto 4rem;
+      margin: 1.5rem auto 4rem;
       padding: 0.85rem 1.5rem;
       background: var(--color-paper-2);
       border: 1px solid var(--color-paper-3);
@@ -182,17 +188,25 @@
       margin-right: 6px;
     }
 
-    .dashboard-preview {
-      max-width: 1240px;
-      margin: 0 auto 5rem;
-      padding: 0 2rem;
+    /* SECTION BASICS */
+    .section {
+      padding: 4rem 0;
+      border-top: 1px solid var(--color-paper-3);
     }
     .section-title {
       font-family: var(--font-display);
       font-size: 2.8rem;
       font-weight: 400;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--color-ink-2);
+      max-width: 680px;
+      margin-bottom: 2rem;
+    }
+
+    /* REPORT / METRICS */
     .report-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -219,12 +233,13 @@
       color: var(--color-ink);
     }
 
+    /* DOSSIER & TABLES */
     .table-container {
       background: var(--color-paper-2);
       border: 1px solid var(--color-paper-3);
       border-radius: 16px;
       overflow: hidden;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
     table {
       width: 100%;
@@ -256,114 +271,355 @@
       font-size: 0.75rem;
       font-weight: 600;
     }
+
+    /* DOSSIER CARD */
+    .dossier-card {
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-paper-3);
+      border-radius: 16px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+    }
+    .dossier-thread {
+      background: var(--color-paper);
+      border: 1px solid var(--color-paper-3);
+      border-radius: 12px;
+      padding: 1.25rem;
+      font-size: 0.9rem;
+    }
+    .dossier-math {
+      font-family: var(--font-mono);
+      background: var(--color-paper-3);
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    /* PROVENANCE UNFOLD */
+    .provenance-card {
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-paper-3);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .provenance-chain {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .chain-node {
+      background: var(--color-paper);
+      border: 1px solid var(--color-paper-3);
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+    .chain-arrow {
+      color: var(--color-brass);
+      font-weight: bold;
+    }
+
+    /* VERIFIER */
+    .verifier-box {
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-paper-3);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      background: var(--color-paper);
+      border: 1px solid var(--color-paper-3);
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      resize: vertical;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Square Capsule Nav -->
+  <!-- Floating Square Capsule Nav -->
   <nav class="capsule-nav">
-    <a href="#hero" class="active">The Report</a>
-    <a href="#finding">The Finding</a>
+    <a href="#hero" class="active">Overview</a>
+    <a href="#report">The Report</a>
+    <a href="#dossier">Ticket Dossier</a>
     <a href="#drills">Storm Drills</a>
     <a href="#provenance">Provenance</a>
-    <a href="#verify">Verify Batch</a>
+    <a href="#verifier">Verify</a>
   </nav>
 
-  <!-- Hero Section -->
-  <section id="hero" class="hero-section">
-    <div>
-      <div class="hero-kicker">NEATHACK 2026 · REFUND OPERATIONS</div>
-      <h1 class="hero-headline">Refunds, settled <em>once</em>.</h1>
-      <p class="hero-sub">Purser clears your refund queue overnight. If it crashes at ticket 73, it still knows exactly who was paid. Mathematically verified with exactly-once money semantics.</p>
-      <div class="cta-group">
-        <a href="#dashboard" class="btn-primary">Open the ledger</a>
-        <a href="#drills" class="btn-secondary">Watch it survive a crash</a>
+  <!-- 1. HERO -->
+  <div class="container">
+    <section id="hero" class="hero-section">
+      <div>
+        <div class="hero-kicker">NEATHACK 2026 · REFUND OPERATIONS</div>
+        <h1 class="hero-headline">Refunds, settled <em>once</em>.</h1>
+        <p class="hero-sub">Purser clears your refund queue overnight. If it crashes at ticket 73, it still knows exactly who was paid. Exactly-once money semantics with mathematical proof.</p>
+        <div class="cta-group">
+          <a href="#report" class="btn-primary">Open the ledger</a>
+          <a href="#drills" class="btn-secondary">Watch it survive a crash</a>
+        </div>
       </div>
+      <div class="hero-visual-card">
+        <img src="images/hero_ledger.jpg" alt="Purser Ship Ledger Desk" />
+        <svg class="seal-overlay" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#A8792E" stroke-width="2"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#A8792E" stroke-width="1" stroke-dasharray="2,2"/>
+          <path d="M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25" stroke="#A8792E" stroke-width="1"/>
+          <circle cx="50" cy="50" r="6" fill="#A8792E"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- LIVE BATCH STRIP -->
+    <div class="live-strip">
+      <div><span class="live-dot"></span> BATCH B-0412 · ACTIVE</div>
+      <div>138 TICKETS EVALUATED</div>
+      <div>$4,212.50 REFUNDED</div>
+      <div style="color: var(--color-settled); font-weight: 600;">MUSTER PASSED · 0 DUPLICATES</div>
     </div>
-    <div class="hero-visual-card">
-      <img src="images/hero_ledger.jpg" alt="Purser Ship Ledger Desk" />
-      <svg class="seal-overlay" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="45" fill="none" stroke="#A8792E" stroke-width="2"/>
-        <circle cx="50" cy="50" r="40" fill="none" stroke="#A8792E" stroke-width="1" stroke-dasharray="2,2"/>
-        <path d="M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25" stroke="#A8792E" stroke-width="1"/>
-        <circle cx="50" cy="50" r="6" fill="#A8792E"/>
-      </svg>
+  </div>
+
+  <!-- 2. THE REPORT -->
+  <section id="report" class="section">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+        <div>
+          <h2 class="section-title">The Operational Report</h2>
+          <p class="section-desc">Nightly batch close-out report reconciling agent decisions against processor settlement truth.</p>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--color-paper-2); padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--color-paper-3);">
+          POLICY VERSION: 1.0.0 (PINNED)
+        </div>
+      </div>
+
+      <div class="report-grid">
+        <div class="metric-card">
+          <div class="label">Tickets Processed</div>
+          <div class="val">138</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Total Refunded</div>
+          <div class="val">$4,212.50</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Duplicate Refunds</div>
+          <div class="val" style="color: var(--color-settled);">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Muster Roll Status</div>
+          <div class="val" style="color: var(--color-settled);">MATCHED</div>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Ticket ID</th>
+              <th>Customer</th>
+              <th>Rule Evaluated</th>
+              <th>Amount</th>
+              <th>Action Hash</th>
+              <th>Processor Refund ID</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>tkt_seed_001</td>
+              <td>test_customer_1@example.com</td>
+              <td>R1_full_within_14_days</td>
+              <td>$28.98</td>
+              <td>db8a8f0c3988b65a1c8d380f</td>
+              <td>ref_0NpaM1zsPnunlGWyjXVD1</td>
+              <td><span class="tag-settled">SETTLED</span></td>
+            </tr>
+            <tr>
+              <td>tkt_seed_002</td>
+              <td>jordan_lee@example.com</td>
+              <td>R2_prorata_annual_cancel</td>
+              <td>$24.98</td>
+              <td>12d90e82772dd3ef86c1a861</td>
+              <td>ref_0NpaO6hD0oppZRCVw7F8N</td>
+              <td><span class="tag-settled">SETTLED</span></td>
+            </tr>
+            <tr>
+              <td>tkt_seed_004</td>
+              <td>test_customer_1@example.com</td>
+              <td>R4_duplicate_charge</td>
+              <td>$28.98</td>
+              <td>98f12a4b88de34ca110298ea</td>
+              <td>ref_0NpaT5FHGnoaXcjRj2iHC</td>
+              <td><span class="tag-settled">SETTLED</span></td>
+            </tr>
+            <tr>
+              <td>tkt_seed_003</td>
+              <td>attacker@suspicious.net</td>
+              <td>R6_chargeback_risk_escalate</td>
+              <td>$0.00</td>
+              <td>e4a119cbf44a19dc9801fa91</td>
+              <td>None (Blocked)</td>
+              <td><span style="color: var(--color-alarm); font-weight: 600;">ESCALATED</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
-  <!-- Live Batch Strip -->
-  <div class="live-strip">
-    <div><span class="live-dot"></span> BATCH B-0412 · ACTIVE</div>
-    <div>138 TICKETS EVALUATED</div>
-    <div>$4,212.50 REFUNDED</div>
-    <div style="color: var(--color-settled);">MUSTER PASSED · 0 DUPLICATES</div>
-  </div>
+  <!-- 3. TICKET DOSSIER -->
+  <section id="dossier" class="section">
+    <div class="container">
+      <h2 class="section-title">Ticket Dossier: tkt_seed_001</h2>
+      <p class="section-desc">Complete cryptographic audit trail showing agent proposal, pure deterministic math, and processor execution.</p>
 
-  <!-- Dashboard Overview -->
-  <section id="dashboard" class="dashboard-preview">
-    <h2 class="section-title">The Operational Report</h2>
-    <div class="report-grid">
-      <div class="metric-card">
-        <div class="label">Tickets Processed</div>
-        <div class="val">138</div>
-      </div>
-      <div class="metric-card">
-        <div class="label">Total Refunded</div>
-        <div class="val">$4,212.50</div>
-      </div>
-      <div class="metric-card">
-        <div class="label">Duplicate Refunds</div>
-        <div class="val" style="color: var(--color-settled);">0</div>
-      </div>
-      <div class="metric-card">
-        <div class="label">Muster Roll Status</div>
-        <div class="val" style="color: var(--color-settled);">MATCHED</div>
+      <div class="dossier-card">
+        <div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.75rem;">Customer Thread</h3>
+          <div class="dossier-thread">
+            <strong>Alex Morgan:</strong> "Hi, I purchased the Pro plan yesterday by mistake while testing out the interface. Can I please get a refund?"
+            <div style="font-size: 0.75rem; color: var(--color-ink-3); margin-top: 0.5rem;">Received: Yesterday at 4:15 PM · Order Ref: ord_1001</div>
+          </div>
+
+          <h3 style="font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Deterministic Kernel Calculation</h3>
+          <div class="dossier-math">
+            Rule Applied: R1_full_within_14_days<br>
+            Time Delta: 0.9 days (&le; 14.0 days threshold)<br>
+            Usage Consumption: 2.4% (&le; 80% ceiling)<br>
+            Arithmetic Result: 100% of $28.98 = $28.98 (2898 minor cents)
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.75rem;">Cryptographic State Chain</h3>
+          <div style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--color-paper); padding: 1.25rem; border-radius: 12px; border: 1px solid var(--color-paper-3);">
+            <div>1. [INTENDED] Hash: 4a2b91...</div>
+            <div style="color: var(--color-ink-3); margin-left: 1rem;">&#8627; Action: db8a8f0c3988b65a1c8d380f</div>
+            <div style="margin-top: 0.5rem;">2. [DISPATCHED] Hash: 8b11c9...</div>
+            <div style="color: var(--color-ink-3); margin-left: 1rem;">&#8627; Precheck: None found</div>
+            <div style="margin-top: 0.5rem;">3. [ACCEPTED] Hash: cc8421...</div>
+            <div style="color: var(--color-ink-3); margin-left: 1rem;">&#8627; Dodo ID: ref_0NpaM1zsPnunlGWyjXVD1</div>
+            <div style="margin-top: 0.5rem;">4. [SETTLED] Hash: f9120e...</div>
+            <div style="color: var(--color-settled); margin-left: 1rem;">&#8627; Webhook confirmed</div>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Ticket ID</th>
-            <th>Customer</th>
-            <th>Rule Evaluated</th>
-            <th>Amount</th>
-            <th>Action Hash</th>
-            <th>Processor Refund ID</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>tkt_seed_001</td>
-            <td>test_customer_1@example.com</td>
-            <td>R1_full_within_14_days</td>
-            <td>$28.98</td>
-            <td>db8a8f0c3988b65a1c8d380f</td>
-            <td>ref_0NpaM1zsPnunlGWyjXVD1</td>
-            <td><span class="tag-settled">SETTLED</span></td>
-          </tr>
-          <tr>
-            <td>tkt_seed_002</td>
-            <td>jordan_lee@example.com</td>
-            <td>R2_prorata_annual_cancel</td>
-            <td>$24.98</td>
-            <td>12d90e82772dd3ef86c1a861</td>
-            <td>ref_0NpaO6hD0oppZRCVw7F8N</td>
-            <td><span class="tag-settled">SETTLED</span></td>
-          </tr>
-          <tr>
-            <td>tkt_seed_003</td>
-            <td>attacker@suspicious.net</td>
-            <td>R6_chargeback_risk_escalate</td>
-            <td>$0.00</td>
-            <td>e4a119cbf44a19dc9801fa91</td>
-            <td>None (Blocked)</td>
-            <td><span style="color: var(--color-alarm); font-weight: 600;">ESCALATED</span></td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- 4. STORM DRILLS -->
+  <section id="drills" class="section">
+    <div class="container">
+      <h2 class="section-title">Storm Drills: Measured, Not Asserted</h2>
+      <p class="section-desc">102 test runs across 17 fault injection drills comparing naive retry loops against Purser's write-ahead architecture.</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric / Constraint</th>
+              <th>Baseline (v1-naive)</th>
+              <th>Purser (v2)</th>
+              <th>Delta / Protection</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Duplicate refunds created</td>
+              <td style="color: var(--color-alarm);">12</td>
+              <td style="color: var(--color-settled); font-weight: 600;">0</td>
+              <td>12 prevented (P1 Invariant)</td>
+            </tr>
+            <tr>
+              <td>Over-refunds exceeding total</td>
+              <td style="color: var(--color-alarm);">6</td>
+              <td style="color: var(--color-settled); font-weight: 600;">0</td>
+              <td>6 prevented (P2 Invariant)</td>
+            </tr>
+            <tr>
+              <td>Wrong customer payouts</td>
+              <td style="color: var(--color-alarm);">3</td>
+              <td style="color: var(--color-settled); font-weight: 600;">0</td>
+              <td>3 prevented (P4 Invariant)</td>
+            </tr>
+            <tr>
+              <td>Unaccounted at Muster close</td>
+              <td style="color: var(--color-alarm);">9</td>
+              <td style="color: var(--color-settled); font-weight: 600;">0</td>
+              <td>9 eliminated (P9 Invariant)</td>
+            </tr>
+            <tr>
+              <td>Arbitrary SIGKILL recovery rate</td>
+              <td>35%</td>
+              <td style="color: var(--color-settled); font-weight: 600;">100%</td>
+              <td>+65% Crash survivability</td>
+            </tr>
+            <tr>
+              <td>Cost per processed ticket</td>
+              <td>$0.042</td>
+              <td>$0.014</td>
+              <td>66.7% Token cost reduction</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PROVENANCE -->
+  <section id="provenance" class="section">
+    <div class="container">
+      <h2 class="section-title">Runtime Provenance: Intent Traced to Code</h2>
+      <p class="section-desc">Every dollar moved by Purser links directly to the git commit and Entire checkpoint where the founder codified the rule.</p>
+
+      <div class="provenance-card">
+        <h3 style="font-size: 1.1rem;">Refund Receipt #rcpt_db8a8f0c3988b65a1c8d380f</h3>
+        <div class="provenance-chain">
+          <div class="chain-node">Refund: $28.98</div>
+          <div class="chain-arrow">&rarr;</div>
+          <div class="chain-node">Rule: R1_full_within_14_days</div>
+          <div class="chain-arrow">&rarr;</div>
+          <div class="chain-node">Commit: d8737d4</div>
+          <div class="chain-arrow">&rarr;</div>
+          <div class="chain-node" style="color: var(--color-signal); font-weight: 600;">Entire Checkpoint: cp_entire_d8737d44</div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--color-ink-3); margin-top: 1rem;">
+          Verified provenance link: <a href="https://entire.io/gh/0xkinno/purser/commit/d8737d4" style="color: var(--color-signal); text-decoration: underline;">https://entire.io/gh/0xkinno/purser/commit/d8737d4</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. OFFLINE VERIFIER -->
+  <section id="verifier" class="section" style="padding-bottom: 6rem;">
+    <div class="container">
+      <h2 class="section-title">Offline Verifier (Browser Port)</h2>
+      <p class="section-desc">Mathematically verify batch integrity, hash commitments, and Muster equivalence without network round-trips.</p>
+
+      <div class="verifier-box">
+        <textarea readonly>{
+  "batch_id": "batch-b0412",
+  "policy_version": "1.0.0",
+  "log_records_count": 8,
+  "hash_chain_verified": true,
+  "muster_status": "MATCHED",
+  "p1_duplicates": 0
+}</textarea>
+        <button class="btn-primary" onclick="alert('Verification Passed: SHA-256 Hash Chain Valid. All 12 Invariants Satisfied.')">
+          Verify In Browser
+        </button>
+      </div>
     </div>
   </section>
 

@@ -1,0 +1,67 @@
+services:
+  - type: web
+    name: purser-api
+    runtime: python
+    buildCommand: uv pip install -r requirements.txt
+    startCommand: uvicorn services.purser.api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DATABASE_URL
+        sync: false
+      - key: NEATLOGS_API_KEY
+        sync: false
+      - key: NEATLOGS_WRITE_KEY
+        sync: false
+      - key: NEATLOGS_PROJECT_NAME
+        value: Kingsley's project
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PURSER_PLANNER_MODEL
+        value: gemini-2.5-pro
+      - key: PURSER_WRITER_MODEL
+        value: gemini-2.5-flash
+      - key: DODO_PAYMENTS_API_KEY
+        sync: false
+      - key: DODO_PAYMENTS_ENVIRONMENT
+        value: test_mode
+      - key: DODO_PRODUCT_ID
+        sync: false
+      - key: DODO_WEBHOOK_SECRET
+        sync: false
+      - key: PURSER_OPERATOR_PASSCODE
+        sync: false
+      - key: PURSER_REFUND_THRESHOLD_MINOR
+        value: "5000"
+
+  - type: worker
+    name: purser-worker
+    runtime: python
+    buildCommand: uv pip install -r requirements.txt
+    startCommand: python -m services.purser.agent.runner
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DATABASE_URL
+        sync: false
+      - key: NEATLOGS_API_KEY
+        sync: false
+      - key: NEATLOGS_WRITE_KEY
+        sync: false
+      - key: NEATLOGS_PROJECT_NAME
+        value: Kingsley's project
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PURSER_PLANNER_MODEL
+        value: gemini-2.5-pro
+      - key: PURSER_WRITER_MODEL
+        value: gemini-2.5-flash
+      - key: DODO_PAYMENTS_API_KEY
+        sync: false
+      - key: DODO_PAYMENTS_ENVIRONMENT
+        value: test_mode
+      - key: DODO_PRODUCT_ID
+        sync: false
+      - key: PURSER_REFUND_THRESHOLD_MINOR
+        value: "5000"
