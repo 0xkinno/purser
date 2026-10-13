@@ -191,3 +191,58 @@ class BatchRunner:
             )
 
         return {"status": "RESOLVED", "amount_minor": rule_res.amount_minor, "receipt": refund_res.get("receipt")}
+
+
+async def run_worker_daemon():
+    """Background worker daemon loop for continuous ticket leasing."""
+    db_url = os.getenv("DATABASE_URL")
+    if not db_url:
+        print("[Purser Worker] DATABASE_URL not configured. Running standby heartbeat loop...")
+        while True:
+            await asyncio.sleep(30)
+            print("[Purser Worker] Heartbeat ping (standby)...")
+
+    print("[Purser Worker] Initializing database pool...")
+    pool = None
+    while pool is None:
+        try:
+            pool = await asyncpg.create_pool(db_url, min_size=1, max_size=5)
+        except Exception as e:
+            print(f"[Purser Worker] Database connection failed: {e}. Retrying in 10s...")
+            await asyncio.sleep(10)
+
+    runner = BatchRunner(pool, worker_id=os.getenv("PURSER_WORKER_ID", "worker-daemon"))
+    print("[Purser Worker] Worker daemon started. Polling for tickets...")
+    while True:
+        try:
+            async with pool.acquire() as conn:
+                new_tickets = await conn.fetchval(
+                    "SELECT COUNT(*) FROM tickets WHERE status = 'NEW';"
+                )
+                if new_tickets and new_tickets > 0:
+                    batch_id = f"batch-auto-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
+                    print(f"[Purser Worker] Found {new_tickets} new tickets. Processing batch {batch_id}...")
+                    report = await runner.run_batch(batch_id)
+                    print(f"[Purser Worker] Batch {batch_id} complete: {report.resolved_count} resolved, {report.escalated_count} escalated.")
+        except Exception as e:
+            print(f"[Purser Worker] Polling error: {e}")
+        await asyncio.sleep(10)
+
+
+def main():
+    port_env = os.getenv("PORT")
+    # If PORT is set (standard on Render Web Services), start FastAPI via uvicorn
+    if port_env:
+        import uvicorn
+        port = int(port_env)
+        print(f"[Purser] PORT={port} detected. Launching FastAPI Web Service on 0.0.0.0:{port}...")
+        uvicorn.run("services.purser.api.main:app", host="0.0.0.0", port=port)
+    else:
+        # Background worker daemon mode (e.g. Render background worker)
+        print("[Purser] No PORT detected. Launching background worker daemon...")
+        asyncio.run(run_worker_daemon())
+
+
+if __name__ == "__main__":
+    main()
+
